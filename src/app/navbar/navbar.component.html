@@ -1,0 +1,46 @@
+<mdb-navbar id="navbar" SideClass="navbar navbar-expand-lg navbar-dark ripe-malinka-gradient text-white" [containerInside]="false">
+    <mdb-navbar-brand>
+        <a class="navbar-brand text-white" href="/"><i class="fas fa-blog"></i><strong>&nbsp;BlogApp</strong></a>
+    </mdb-navbar-brand>
+    <links>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link waves-light active" *ngIf="!isloggedin" routerLink="/" mdbWavesEffect>
+                    <mdb-icon fas icon="home"></mdb-icon> Home</a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link waves-light" *ngIf="!isloggedin" routerLink="/login" mdbWavesEffect>
+                    <mdb-icon fas icon="user"></mdb-icon>Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-light" *ngIf="isloggedin" routerLink="/dashboard" mdbWavesEffect>
+                  <mdb-icon fas icon="user"></mdb-icon>My profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-light" *ngIf="isloggedin" routerLink="/logout" mdbWavesEffect>
+                <mdb-icon fas icon="user"></mdb-icon>Logout</a>
+        </li>
+            <!--  <li class="nav-item">
+          <mdb-select [options]="optionsSelect" [multiple]="true" placeholder="Choose your option" label="Location"></mdb-select>
+          <label><mdb-icon fas icon="globe"></mdb-icon>Location</label>
+        </li> -->
+            <!-- <li class="nav-item pt-1">
+                <select class="browser-default custom-select dropdown dropdown-info">
+            <option class="dropdown-item" value="Bangalore">Bangalore</option>
+            <option class="dropdown-item" value="Chennai" selected="">Chennai</option>
+            <option class="dropdown-item" value="Mumbai">Mumbai</option>
+          </select>
+            </li> -->
+            <!---<li class="nav-item dropdown" mdbDropdown dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <mdb-icon fas icon="map-marker-alt"></mdb-icon>{{ Location }}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary text-white" role="menu">
+          <a class="dropdown-item waves-light" value="Chennai" mdbWavesEffect ng-model="Location">Chennai</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect value="Chennai" ng-model="Location" >Mumbai</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect value="Chennai" ng-model="Location" >Bangalore</a>
+        </div>
+      </li>-->
+        </ul>
+    </links>
+</mdb-navbar>

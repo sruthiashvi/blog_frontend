@@ -1,0 +1,63 @@
+<body background="assets/images/blur.jpg"> 
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+                   <div class="col-md-4">
+                   </div>
+                   <div class="card col-lg-4 col-md-6">
+                       <div class="card-body">
+                           <div class="text-center">
+                               <h3 class="dark-grey-text mb-5">
+                                   <strong>Log In</strong>
+               
+                               </h3>
+                           </div>
+       <div class="md-form md-outline">
+           <input mdbInput type="text" id="mobile" class="form-control" formControlName="mobileInput">
+           <label for="mobile">Name </label>
+       </div>
+       <div class="md-form pb-3 md-outline">
+           <input mdbInput id="password" type="password" appPassword class="form-control" formControlName="passwordInput">
+           <label for="password">Password </label>
+           
+       </div>
+       <div class="text-center mb-3">
+           <button type="submit" class="btn ripe-malinka-gradient btn-block rounded z-depth-1a waves-effect waves-light text-white">Log in</button>
+       </div>
+
+       <div class="modal-footer mx-5 ml-5pt-3 mb-1">                           
+               <p class="font-small grey-text ">New member?
+                   <a routerLink="/signup" class="blue-text ml-1">Signup</a>
+   
+               </p>
+           </div>
+   </div>                   
+</div>
+</div>
+</form>
+<hr>   
+<div class="text-center text-md-right ripe-malinka-gradient" style="height:70px">
+        <ul class="list-unstyled list-inline">
+            <li class="list-inline-item">
+                <!--Facebook-->
+                <a class="btn-floating btn-sm btn-fb" type="button" role="button"><i class="fab fa-facebook-f"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <!--Twitter-->
+                <a class="btn-floating btn-sm btn-tw" type="button" role="button"><i class="fab fa-twitter"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <!--Stack Overflow-->
+                <a class="btn-floating btn-sm btn-so" type="button" role="button"><i class="fab fa-stack-overflow"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <!--Youtube-->
+                <a class="btn-floating btn-sm btn-yt" type="button" role="button"><i class="fab fa-youtube"></i></a>
+            </li>
+            <li class="list-inline-item">
+                <!--Github-->
+                <a class="btn-floating btn-sm btn-git" type="button" role="button"><i class="fab fa-github"></i></a>
+            </li>
+        </ul>
+    </div>
+</body>
+

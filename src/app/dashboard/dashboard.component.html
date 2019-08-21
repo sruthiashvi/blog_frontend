@@ -1,0 +1,255 @@
+
+<style>
+    .avatar {
+        vertical-align: middle;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+</style>
+<body background="assets/images/blur.jpg">
+<div class="row bgimage">
+    <div class="col-md-1 col-lg-2 col-xl-3">
+        <div class="sidebar">
+            <div class="pt-3 pb-3 pl-3">
+                <strong style="font-size: 20px">Hi {{uname}}</strong>
+            </div>
+            <div class="list-group list-group-flush">
+                <a class="list-group-item list-group-item-action bg-light text-black waves-effect active" data-toggle="tab" href="#panel2" role="tab">
+                    <mdb-icon fas icon="blog" class="mr-3"></mdb-icon>My posts
+                </a>
+                <a class="list-group-item list-group-item-action bg-light waves-effect" data-toggle="tab" href="#panel3" role="tab">
+                        <mdb-icon fas icon="user" class="mr-3"></mdb-icon>Feed
+                 </a>
+                 <a class="list-group-item list-group-item-action bg-light waves-effect" data-toggle="tab" href="#postonly" role="tab">
+                        <mdb-icon fas icon="edit" class="mr-3"></mdb-icon>Write New post
+                 </a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-11 col-lg-11 col-xl-9">
+        <div class="tab-content">
+            <div class="tab-pane fade in show active" id="panel2" role="tabpanel">
+                <div class="container-fluid">
+                        <div class="row">
+                                <div class="col-md-3 mt-2">
+                                    <img src="{{image.image}}" alt="Avatar" class="avatar"><br>
+                                    <i class="fas fa-pencil-alt ml-2" (click)="editclick()"><a>Change pro pic</a></i>
+                                    <input id="propic" type="file" (change)="getfile()" style="opacity: 0"/>
+                                </div>
+                                <div class="col-md-9 mt-3">
+                                    <table class="table">
+                                        <tbody class="text-left">
+                                            <tr>
+                                                <th class="font-weight-normal">Name</th>
+                                                <td  class="font-weight-normal">{{uname}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th  class="font-weight-normal">Email</th>
+                                                <td  class="font-weight-normal">{{uemail}}</td>
+                                            </tr>
+                                    
+                                        </tbody>
+                                    </table>               
+                                </div>
+                                
+                            </div>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-sm-12 mt-4">
+                                <div *ngFor="let i of post">
+                                        <div *ngIf="i.author==returnuname()">
+                                            <div class="container">
+                                                    <div class="alert alert-secondary" role="alert">
+                                                            <div class="row alert alert-success">
+                                                                <div class="col-md-6">
+                                                                <h4 class="alert-heading">{{i.subject}}</h4></div>
+                                                                <div class="col-md-6 text-right">
+                                                                    {{i.pdate}}&nbsp;&nbsp;{{i.ptime}}
+                                                                </div>
+                                                            </div>
+                                                        <p *ngIf="i.id!=thisid">{{i.content}}</p>
+                                                        <textarea cols="100%" *ngIf="edit && i.id==thisid" value={{i.content}} [(ngModel)]="postcontent"></textarea>
+                                                        <hr>                                                   
+                                                        <hr> 
+                                                        <form [formGroup]="commentform">
+                                                            <div class="container-fluid row mb-2">
+                                                                        <div class="col-md-1 col-lg-1 col-sm-1">
+                                                                            <img class="rounded-circle card-img-100 d-flex z-depth-1 mr-3" src="assets/images/img_avatar.png" width="20px" height="20px"
+                                                                            alt="Generic placeholder image">
+                                                                        </div>
+                                                                        <div class="col-md-6 col-lg-6 col-sm-6">
+                                                                        
+                                                                            <textarea rows="2" class="form-control" placeholder="Reply here.." formControlName="comment" cols="100%"></textarea>
+                                                                        </div>                                                                      
+                                                                        <div class="col-md-2 col-lg-2 col-sm-2 mb-2 pull-right">
+                                                                            <button type="submit" (click)="createcomment(i.id)" class="btn ripe-malinka-gradient">Post</button>
+                                                                        </div>
+                                                                        <div class="col-md-3 col-lg-3 col-sm-3 mb-2 mt-3">
+                                                                                <a (click)="getpid(i.id)" >&nbsp;View Comments</a>
+                                                                            </div>
+                                                                           
+                                                                    </div>
+                                                                          <hr>
+                                                                             <div class="row">                                                                           
+                                                                                    <div class="col-md-2 col-lg-2 col-sm-4">
+                                                                                    <div *ngIf="i.id!=thisid" class="col-md-3 col-lg-3 col-sm-4 mb-2">
+                                                                                        <button type="submit" (click)="editpost(i.id,i.content)" class="btn ripe-malinka-gradient">Edit</button>
+                                                                                    </div> 
+                                                                                    <div *ngIf="edit && i.id==thisid" class="col-md-3 col-lg-3 col-sm-4 mb-2">
+                                                                                        <button type="submit" (click)="updatepost(i.id,i.subject)" class="btn ripe-malinka-gradient">Update</button>
+                                                                                    </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-3 col-lg-3 col-sm-6">
+                                                                                    <div class="col-md-3 col-lg-3 col-sm-6 mb-2">
+                                                                                        <button type="submit" (click)="deletepost(i.id)" class="btn btn-danger">Delete</button>
+                                                                                    </div> 
+                                                                                    </div>
+                                                                                    </div>                                                                                                                                            
+                                                            <div *ngIf="i.id==selectedid">
+                                                                <div *ngFor="let j of comment">
+                                                                    <div *ngIf="j.pid==selectedid">                       
+                                                                            <div class="media mt-4 px-3">
+                                                                                    <img class="rounded-circle card-img-100 d-flex z-depth-1 mr-3" src="assets/images/img_avatar.png" width="20px" height="20px"
+                                                                                        alt="Generic placeholder image">
+                                                                                    <div class="media-body">
+                                                                                            <div class="row">
+                                                                                                    <div class="col-md-6">
+                                                                                                        <h5 class="font-weight-bold mt-0">
+                                                                                                            <p>{{j.postedby}}</p>
+                                                                
+                                                                                                        </h5>
+                                                                                                </div>
+                                                                                                <div class="col-md-6 text-right">
+                                                                                                        <i>{{j.cdate}}&nbsp;&nbsp;{{j.ctime}}</i>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                        {{j.comment}}
+                                                                                        <hr>
+                                                                                    </div>
+                                                                                    </div>                                                    
+                                                                            </div>                                                   
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div> 
+                                </div>                            
+                        </div>
+                    </div>
+
+                </div>
+
+            <!--/.Panel 2-->
+            <div class="tab-pane fade" id="panel3" role="tabpanel">
+                <div class="container-fluid">
+                    <div class="card col-lg-12 col-md-12 col-sm-12 mt-2 mb-3">
+                    <div class="card-body">
+                    <form [formGroup]="postform">
+                            <div class="form-group shadow-textarea">
+                                 <label for="post">Subject</label>
+                                 <input type="text" class="form-control z-depth-1" formControlName="subject" id="post" name="subject">
+                            </div>
+                            <div class="form-group shadow-textarea">
+                                    <label for="post">Write something here..</label>
+                                    <textarea class="form-control z-depth-1" id="post" formControlName="content" rows="3" ></textarea>
+                            </div>                      
+                           <button type="submit" (click)="createpost()" class="btn btn-block ripe-malinka-gradient">Post</button>
+                    </form>
+                        </div>
+                    </div>
+                </div>
+                          
+                          <div *ngFor="let i of post">
+                              <div *ngIf="i.author!=returnuname()">
+                                  <div class="container">
+                                  <div class="alert alert-secondary" role="alert">
+                                      <div class="row alert alert-success">
+                                          <div class="col-md-6">
+                                            <h4 class="alert-heading">{{i.subject}}</h4>
+                                           </div>
+                                            <div class="col-md-6 text-right">
+                                                {{i.pdate}}&nbsp;&nbsp;{{i.ptime}}
+                                            </div>
+                                        </div>
+                                            <p>{{i.content}}</p>
+                                            <hr>
+                                            <p class="mb-0 blockquote-footer">posted by {{i.author}}</p>
+                                            <hr>
+                                        <form [formGroup]="commentform">
+                                        <div class="container-fluid row mb-2">
+                                            <div class="col-md-1">
+                                                <img class="rounded-circle card-img-100 d-flex z-depth-1 mr-3" src="{{image.image}}" width="20px" height="20px"
+                                                alt="Generic placeholder image">
+                                            </div>
+                                        <div class="col-md-5">
+                                        
+                                            <textarea rows="2" class="form-control" placeholder="Write your comment here.." formControlName="comment" cols="100%"></textarea>
+                                        </div>
+                                        <div class="col-md-2 mb-2 pull-right">
+                                            <button type="submit" (click)="createcomment(i.id)" class="btn   ripe-malinka-gradient">Post</button>
+                                        </div>
+                                        <div class="col-md-2 col-lg-3 col-sm-3 mb-2 mt-3">
+                                                <a (click)="getpid(i.id)" >&nbsp;View Comments</a>
+                                            </div>
+                                        <div class="col-md-1 mt-3">   
+                                                       
+                                                        <a (click)="fav(i.id)"><i *ngIf="i.id!=thisid" class="far fa-heart"></i><i *ngIf="color && i.id==thisid" class="fas fa-heart" style="color:red;"></i></a>
+                                                        </div>                               
+                                        </div>
+                                        <div *ngIf="i.id==selectedid">
+                                            <div *ngFor="let j of comment">
+                                                <div *ngIf="j.pid==selectedid">                       
+                                                        <div class="media mt-4 px-3">
+                                                                <img class="rounded-circle card-img-100 d-flex z-depth-1 mr-3" src="assets/images/img_avatar.png" width="20px" height="20px"
+                                                                alt="Generic placeholder image">
+                                                                <div class="media-body">
+                                                                    <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <h5 class="font-weight-bold mt-0">
+                                                                            <p>{{j.postedby}}</p>
+                                
+                                                                        </h5>
+                                                                      </div>
+                                                                   <div class="col-md-6 text-right">
+                                                                        <i>{{j.cdate}}&nbsp;&nbsp;{{j.ctime}}</i>
+                                                                    </div>
+                                                                    </div>
+                                                                     {{j.comment}}
+                                                                     <hr>
+                                                                </div>
+                                                            </div>                                            
+                                                    </div>                                        
+                                            </div>
+                                         </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                </div>
+                             </div>    
+                         </div>
+                         <div class="tab-pane fade" id="postonly" role="tabpanel">
+                                <div class="container-fluid">
+                                    <div class="card col-lg-12 col-md-12 col-sm-12 mt-2 mb-3 cardonly">
+                                    <div class="card-body">
+                                    <form [formGroup]="postform">
+                                            <div class="form-group shadow-textarea">
+                                                 <label for="post">Subject</label>
+                                                 <input type="text" class="form-control z-depth-1" formControlName="subject" id="post" name="subject">
+                                            </div>
+                                            <div class="form-group shadow-textarea">
+                                                    <label for="post">Write something here..</label>
+                                                    <textarea class="form-control z-depth-1" id="post" formControlName="content" rows="12" ></textarea>
+                                            </div>                      
+                                           <button type="submit" (click)="createpost()" class="btn btn-block ripe-malinka-gradient">Post</button>
+                                    </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                    </div>
+                </div>
+             </div>
+</body>

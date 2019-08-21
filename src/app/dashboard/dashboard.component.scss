@@ -1,0 +1,89 @@
+.sidebar-fixed {
+    height: 100vh;
+    width: 100px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    z-index: 1050;
+    background:none;
+    padding: 1.5rem;
+    padding-top: 0; }
+    .sidebar-fixed .list-group .active {
+      -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      -webkit-border-radius: 5px;
+      border-radius: 5px; }
+    .sidebar-fixed .logo-wrapper {
+      padding: 2.5rem; }
+      .sidebar-fixed .logo-wrapper img {
+        max-height: 50px; }
+  
+  @media (min-width: 1200px) {
+    .navbar,
+    .page-footer,
+    main {
+      padding-left: 270px; } }
+  
+  @media (max-width: 1199.98px) {
+    .sidebar-fixed {
+      display: none; } }
+
+      .flex-column {
+  .nav-item a {
+    width: 100%;
+    margin: 0;
+    color: #495057;
+    margin-bottom: -1px;
+  }
+
+  // .active a {
+  //   background-image: -webkit-gradient(linear,left bottom,left top,from(#30cfd0),to(#330867));
+	//   background-image: -webkit-linear-gradient(bottom,#30cfd0 0,#330867 100%);
+	//   background-image: -o-linear-gradient(bottom,#30cfd0 0,#330867 100%);
+	//   background-image: linear-gradient(to top,#30cfd0 0,#330867 100%);
+  //   border-color: #007bff;
+  //   color: #fff !important;
+  // }
+.sidebar{
+  background:none;
+}
+  .list-group-item {
+    border-radius: 0;
+    background:none;
+  }
+}
+
+.flex-column.list-group {
+  .nav-link {
+    padding: 0 !important;
+  }
+}
+
+.list-group-item-action {
+    z-index: unset; // Fix for situation when in Safari list group item is invisible on hover
+}
+.list-group-item.active{
+  background-color: hotpink;
+  color:black
+ }
+.avatar-pic {
+  width: 150px;
+  }
+.avatar{
+  width: 100px;
+  height: 100px;
+}
+.card-img-100{
+  width: 55px;
+  height: 60px;
+}
+.btn{
+  border-radius: 40px;
+}
+.card{
+  background:none;
+  min-height: 100%;
+}
+.cardonly{
+  min-height: 100%;
+}
+
